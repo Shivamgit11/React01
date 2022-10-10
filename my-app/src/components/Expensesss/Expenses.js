@@ -6,7 +6,14 @@ import "./Expenses.css";
 const  Expenses = (props) => {
   return (
     <Card className="expenses">
-      <ExpenseItem
+      {props.items.map((item) => (
+        <ExpenseItem
+        title={item.title}
+        amount={item.amount}
+        date={item.date}
+        id={item.id} />
+      ))}
+      {/* <ExpenseItem
         title={props.items[0].title}
         amount={props.items[0].amount}
         date={props.items[0].date}
@@ -29,7 +36,7 @@ const  Expenses = (props) => {
         amount={props.items[3].amount}
         date={props.items[3].date}
         id={props.items[3].id}
-      />
+      /> */}
     </Card>
   );
 }
