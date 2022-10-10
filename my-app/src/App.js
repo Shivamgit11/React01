@@ -32,7 +32,9 @@ const App = ()  => {
     console.log("In app js");
     console.log(expense); 
     //expenses.push(expense);
-    setExpensesData(previousstate => {return [expense, ...previousstate]})
+    setExpensesData((prevData) => {
+      return [...prevData, expense];
+    });
   };
   console.log(expenses);
   // return React.createElement(
