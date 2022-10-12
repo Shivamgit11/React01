@@ -1,20 +1,80 @@
-import React from "react";
 
-import ExpenseForm from './ExpenseForm.js';
-import './NewExpenses.css';
+
+import React, { useState } from "react";
+
+import ExpenseForm from "./ExpenseForm";
+import "./NewExpenses.css";
+
 const NewExpense = (props) => {
+  const [isEditing, setIsEditing] = useState(false);
 
-    const onSaveExpenseDataHandler = (enteredExpenseData) => {
-        const expenseData = {
-            ...enteredExpenseData,
-            id: Math.random().toString()
-        };
-        props.onAddExpense(expenseData);
+  const saveExpenseDataHandler = (enteredExpenseData) => {
+    const expenseData = {
+      ...enteredExpenseData,
+      id: Math.random().toString(),
     };
+    props.onAddExpense(expenseData);
+    setIsEditing(false);
+  };
 
-    return <div className="new-expense">
-        <ExpenseForm onSaveExpenseData={onSaveExpenseDataHandler}  />
+  const startEditingHandler = () => {
+    setIsEditing(true);
+  };
+
+  const stopEditingHandler = () => {
+    setIsEditing(false);
+  };
+
+  return (
+    <div className="new-expense">
+      {!isEditing && (
+        <button onClick={startEditingHandler}>Add New Expense</button>
+      )}
+      {isEditing && (
+        <ExpenseForm
+          onSaveExpenseData={saveExpenseDataHandler}
+          onCancel={stopEditingHandler}
+        />
+      )}
     </div>
-}
+  );
+};
 
 export default NewExpense;
+
+
+
+// =============
+// import React, { useState } from "react";
+
+// import ExpenseForm from './ExpenseForm.js';
+// import './NewExpenses.css';
+// const NewExpense = (props) => {
+
+//     const onSaveExpenseDataHandler = (enteredExpenseData) => {
+
+//         const [isEditing, setIsEditing] = useState(false);
+
+//         const expenseData = {
+//             ...enteredExpenseData,
+//             id: Math.random().toString()
+//         };
+//         props.onAddExpense(expenseData);
+//         setIsEditing(false);
+//     };
+
+//     const startEditingHandler = () => {
+//         setIsEditing(true);
+//     }
+
+//     const stopEditingHandler = () => {
+//         setIsEditing(false);
+//     }
+
+//     return <div className="new-expense">
+//         {!isEditing && <button onClick={startEditingHandler}>Add New Expense</button>}
+//         {isEditing && <ExpenseForm
+//         onSaveExpenseData={onSaveExpenseDataHandler}
+//         onCancel={stopEditingHandler} />}
+//     </div>
+// }
